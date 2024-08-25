@@ -4,9 +4,9 @@ const auth = require("../middleware/auth");
 const User = require("../models/user");
 
 
-router.get("/users/:id", auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const user = User.findById(req.parms.id);
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res
         .status(404)
