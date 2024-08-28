@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../../models/user'); 
-const Organisation = require('../../models/Organisation'); 
+const User = require('../models/user'); 
+const Organisation = require('../models/Organisation'); 
 const { v4: uuidv4 } = require("uuid");
 
 const registerUser = async (req, res) => {
@@ -55,7 +55,7 @@ const registerUser = async (req, res) => {
         };
 
         const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
-        res.status(201).json({ status: "success", message: "Registration Successful", data: { accessToken: accessToken, payload } });
+        return res.status(201).json({ status: "success", message: "Registration Successful", data: { accessToken: accessToken, payload } });
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
