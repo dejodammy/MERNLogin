@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const INITIAL_STATE = {
     firstName: '',
@@ -22,6 +23,7 @@ interface FormValues {
 const RegisterPage: React.FC = () => {
     const [formValues, setFormValues] = useState<FormValues>(INITIAL_STATE);
     const [errors, setErrors] = useState<string[]>([]);
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
     const validateForm = (): string[] => {
         const error: string[] = [];
@@ -43,15 +45,26 @@ const RegisterPage: React.FC = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formErrors = validateForm();
         if (formErrors.length > 0) {
             setErrors(formErrors);
+            setSuccessMessage('');
         } else {
             setErrors([]);
-            // Handle successful form submission
-            console.log("Form submitted successfully with values:", formValues);
+            try {
+                const response = await axios.post('http://localhost:5000/auth/register', formValues);
+                setSuccessMessage('Registration successful! Please check your email to confirm your account.');
+                console.log(response.data);
+            } catch (error: any) {
+                if (error.response && error.response.data) {
+                    setErrors(error.response.data.errors.map((err: any) => err.message));
+                } else {
+                    setErrors(['An error occurred. Please try again later.']);
+                }
+                setSuccessMessage('');
+            }
         }
     };
 
@@ -138,6 +151,11 @@ const RegisterPage: React.FC = () => {
                                     <li key={index}>{error}</li>
                                 ))}
                             </ul>
+                        </div>
+                    )}
+                    {successMessage && (
+                        <div className="mb-4 text-green-500 text-sm">
+                            {successMessage}
                         </div>
                     )}
                     <div className="flex items-center mb-4">
