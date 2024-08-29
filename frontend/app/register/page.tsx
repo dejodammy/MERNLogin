@@ -33,7 +33,6 @@ const RegisterPage: React.FC = () => {
         if (!formValues.password) error.push("Password is required");
         if (formValues.password !== formValues.confirmPassword) error.push("Passwords do not match");
         if (!formValues.number) error.push("Phone number is required");
-
         return error;
     };
 
@@ -56,7 +55,6 @@ const RegisterPage: React.FC = () => {
             try {
                 const response = await axios.post('http://localhost:5000/auth/register', formValues);
                 setSuccessMessage('Registration successful! Please check your email to confirm your account.');
-                console.log(response.data);
             } catch (error: any) {
                 if (error.response && error.response.data) {
                     setErrors(error.response.data.errors.map((err: any) => err.message));
@@ -69,31 +67,31 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-start min-h-screen bg-white">
-            <div className="w-[640px] h-screen pl-[60px] pt-[76px] pr-[135px] bg-[#02020E] shadow-md">
-                <h1 className="text-2xl w-[338px] font-bold text-[#FFFFFF] mb-[0px]">Welcome To Chams</h1>
-                <p className='text-[#F3C280] text-sm mb-[36px]'>Create your account</p>
+        <div className="flex flex-col lg:flex-row min-h-screen bg-white">
+            <div className="flex-1 lg:w-1/2 p-6 lg:p-12 bg-[#02020E] shadow-md flex flex-col justify-center">
+                <h1 className="text-2xl font-bold text-[#FFFFFF] mb-4">Welcome To Chams</h1>
+                <p className='text-[#F3C280] text-sm mb-6'>Create your account</p>
                 <form className="space-y-4" onSubmit={handleSubmit}>
-                    <div className='flex'>
-                        <div className='w-[202px] mb-2'>
+                    <div className="flex flex-col lg:flex-row lg:space-x-4">
+                        <div className='flex-1 mb-2'>
                             <label htmlFor="firstName" className="block text-sm font-medium text-[#6E6E78]">First Name</label>
                             <input
                                 type="text"
                                 id="firstName"
                                 value={formValues.firstName}
                                 onChange={handleChange}
-                                className="w-[190px] ml-0 border-b-2 text-[#6E6E78] border-[#9E9EAC] focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
+                                className="w-full border-b-2 text-[#6E6E78] border-[#9E9EAC] focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
                                 placeholder="John"
                             />
                         </div>
-                        <div className='w-[202px]'>
+                        <div className='flex-1'>
                             <label htmlFor="lastName" className="block text-sm font-medium text-[#6E6E78]">Last Name</label>
                             <input
                                 type="text"
                                 id="lastName"
                                 value={formValues.lastName}
                                 onChange={handleChange}
-                                className="border-b-2 text-[#6E6E78] border-gray-400 focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
+                                className="w-full border-b-2 text-[#6E6E78] border-gray-400 focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
                                 placeholder="Doe"
                             />
                         </div>
@@ -105,30 +103,30 @@ const RegisterPage: React.FC = () => {
                             id="email"
                             value={formValues.email}
                             onChange={handleChange}
-                            className="w-[415px] border-b-2 text-[#6E6E78] border-gray-400 font-semibold text-[12px] focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
+                            className="w-full border-b-2 text-[#6E6E78] border-gray-400 font-semibold text-[12px] focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
                             placeholder="Example@.com"
                         />
                     </div>
-                    <div className='flex'>
-                        <div className='w-[202px] mt-2'>
+                    <div className="flex flex-col lg:flex-row lg:space-x-4">
+                        <div className='flex-1 mt-2'>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                             <input
                                 type="password"
                                 id="password"
                                 value={formValues.password}
                                 onChange={handleChange}
-                                className="w-[190px] border-b-2 text-[#6E6E78] border-gray-400 focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
+                                className="w-full border-b-2 text-[#6E6E78] border-gray-400 focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
                                 placeholder="********"
                             />
                         </div>
-                        <div className='w-[202px] mb-2 mt-2'>
+                        <div className='flex-1 mt-2'>
                             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
                             <input
                                 type="password"
                                 id="confirmPassword"
                                 value={formValues.confirmPassword}
                                 onChange={handleChange}
-                                className="border-b-2 text-[#6E6E78] border-gray-400 focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
+                                className="w-full border-b-2 text-[#6E6E78] border-gray-400 focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
                                 placeholder="********"
                             />
                         </div>
@@ -140,7 +138,7 @@ const RegisterPage: React.FC = () => {
                             id="number"
                             value={formValues.number}
                             onChange={handleChange}
-                            className="w-[415px] border-b-2 text-[#6E6E78] border-gray-400 font-semibold text-[12px] focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
+                            className="w-full border-b-2 text-[#6E6E78] border-gray-400 font-semibold text-[12px] focus:border-[#6C7A99] bg-transparent pl-0 py-1 outline-none"
                             placeholder="Phone Number"
                         />
                     </div>
@@ -164,9 +162,9 @@ const RegisterPage: React.FC = () => {
                             id="remember-me"
                             className="mr-2 bg-gray-100"
                         />
-                        <label htmlFor="remember-me" className="text-sm text-[12px] text-[#6E6E78]">Remember Me</label>
+                        <label htmlFor="remember-me" className="text-sm text-[#6E6E78]">Remember Me</label>
                     </div>
-                    <div className="text-sm text-[12px] text-[#6E6E78] mb-4">
+                    <div className="text-sm text-[#6E6E78] mb-4">
                         <p>
                             By signing up, you agree to our 
                             <a href="/terms" className="text-[#F3C280] hover:underline"> Terms and Conditions</a>.
@@ -174,14 +172,19 @@ const RegisterPage: React.FC = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-[415px] mt-1 px-4 py-2 bg-[#1A1B26] text-[#F3C280] font-semibold rounded-lg shadow-md hover:bg-[#2A2B36] focus:outline-none focus:ring-2 focus:ring-[#4A4B66]"
+                        className="w-full px-4 py-2 bg-[#1A1B26] text-[#F3C280] font-semibold rounded-lg shadow-md hover:bg-[#2A2B36] focus:outline-none focus:ring-2 focus:ring-[#4A4B66]"
                     >
                         Register
                     </button>
-                    <div className="text-center text-[12px] mr-8 mt-4">
+                    <div className="text-center text-sm mt-4">
                         <a href="/forgot-password" className="text-[#F3C280] hover:underline">Forgot Password?</a>
                     </div>
                 </form>
+            </div>
+            <div className="hidden lg:block lg:w-1/2">
+                <div className='h-full w-full bg-[#1E1E1E]'>
+                    <div className='h-full bg-opacity-10 bg-white'></div>
+                </div>
             </div>
         </div>
     );
